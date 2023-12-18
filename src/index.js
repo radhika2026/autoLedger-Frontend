@@ -13,7 +13,7 @@ import NucleoIcons from "views/NucleoIcons.js";
 import LoginPage from "views/examples/LoginPage.js";
 import LandingPage from "views/examples/LandingPage.js";
 import ProfilePage from "views/examples/ProfilePage.js";
-
+import Insurance from "views/examples/Insurance.js";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
@@ -24,6 +24,7 @@ root.render(
       <Route path="/landing-page" element={<LandingPage />} />
       <Route path="/profile-page" element={<ProfilePage />} />
       <Route path="/login-page" element={<LoginPage />} />
+      <Route path="/insurance" element={<Insurance />} />
 
       <Route path="*" element={<Navigate to="/index" replace />} />
     </Routes>
