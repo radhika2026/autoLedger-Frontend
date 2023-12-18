@@ -21,13 +21,13 @@ const metadata = {
   recipientPublicKey: "HvNRQznqrRdCwSKn6R8ZoQE4U3aobQShajK1NShQhGRn",
 };
 
-function Insurance() {
-  const [formData, setFormData] = useState({
-    cost: "",
-    date: "",
-    description: "",
-    numberPlate: "",
-  });
+function ServiceCenter() {
+    const [formData, setFormData] = useState({
+        serviceCenter: "",
+        serviceDate: "",
+        serviceDescription: "",
+        odometerReading: "",
+      });
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
 
@@ -38,45 +38,38 @@ function Insurance() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    let numberPlate = formData.numberPlate;
-
+    var numberPlate = formData.numberPlate;
     try {
-      var newInsuranceObject = {};
-      newInsuranceObject["date"] = formData.date;
-      newInsuranceObject["cost"] = formData.cost;
-      newInsuranceObject["description"] = formData.description;
+      var newServiceObject = {};
+      newServiceObject["serviceCenter"] = formData.serviceCenter;
+      newServiceObject["serviceDate"] = formData.serviceDate;
+      newServiceObject["serviceDescription"] = formData.serviceDescription;
       sendRequest(FETCH_CAR(numberPlate)).then((res) => {
         if (res != {}) {
+          console.log("fetch res", res);
           // if (res.data.getCarTransaction.servicingHistory) {
-          console.log("response form fetch", res);
-          var insuranceHistory = res.data.getCarTransaction.insuranceHistory;
-          insuranceHistory.push(newInsuranceObject);
-          res.data.getCarTransaction.insuranceHistory = insuranceHistory;
+          var servicingHistory = res.data.getCarTransaction.servicingHistory;
+          servicingHistory.push(newServiceObject);
+          res.data.getCarTransaction.servicingHistory = servicingHistory;
+          res.data.getCarTransaction.odometerReading = formData.odometerReading;
           var payload = res.data.getCarTransaction;
           const timestamp = Date.now();
           payload.timestamp = timestamp;
           payload.asset_type = "car";
           payload = JSON.stringify(payload);
-          console.log("payload for update", payload);
           try {
             sendRequest(UPDATE_CAR(metadata, payload)).then((response) => {
               console.log("updated successfully", response);
-              setToastMessage("Updated SUccessfully");
-              setShowToast(true);
             });
           } catch (error) {
             console.log("error");
-            setToastMessage("Error fetching data. Please try again.");
-            setShowToast(true);
           }
         } else {
           //TODO: pop up no car found
-          setToastMessage("Error fetching data. Please try again.");
-          setShowToast(true);
         }
       });
     } catch (error) {}
+    //CRITICAL: ADD Update Car API
   };
 
   return (
@@ -106,23 +99,33 @@ function Insurance() {
               </FormGroup>
               <FormGroup>
                 <label htmlFor="exampleInputPassword1">
-                  Date of Insurance Claim
+                  Date of Service
                 </label>
                 <Input
-                  placeholder="Insurance Claim Date"
+                  placeholder="Date of Service"
                   type="date"
-                  name="date"
-                  value={formData.date}
+                  name="serviceDate"
+                  value={formData.serviceDate}
                   onChange={handleChange}
                 ></Input>
               </FormGroup>
               <FormGroup>
-                <label htmlFor="exampleInputEmail1">Cost</label>
+                <label htmlFor="exampleInputEmail1">Service Center Name</label>
                 <Input
-                  placeholder="Cost of the Claim"
-                  value={formData.cost}
+                  placeholder="Service Center Name"
+                  value={formData.serviceCenter}
                   type="text"
-                  name="cost"
+                  name="serviceCenter"
+                  onChange={handleChange}
+                ></Input>
+              </FormGroup>
+              <FormGroup>
+                <label htmlFor="exampleInputEmail1">Odometer Reading</label>
+                <Input
+                  placeholder="Odometer Reading"
+                  value={formData.odometerReading}
+                  type="number"
+                  name="odometerReading"
                   onChange={handleChange}
                 ></Input>
               </FormGroup>
@@ -130,10 +133,10 @@ function Insurance() {
                 <label htmlFor="exampleInputEmail1">Notes</label>
                 <Input
                   placeholder="Add description of the incident"
-                  value={formData.description}
+                  value={formData.serviceDescription}
                   type="textarea"
                   onChange={handleChange}
-                  name="description"
+                  name="serviceDescription"
                 />
               </FormGroup>
               <FormGroup check>
@@ -155,4 +158,4 @@ function Insurance() {
   );
 }
 
-export default Insurance;
+export default ServiceCenter;
