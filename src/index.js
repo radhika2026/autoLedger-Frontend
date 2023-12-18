@@ -14,6 +14,8 @@ import LoginPage from "views/examples/LoginPage.js";
 import LandingPage from "views/examples/LandingPage.js";
 import ProfilePage from "views/examples/ProfilePage.js";
 import Insurance from "views/examples/Insurance.js";
+import SignUpPage from "views/examples/SignUpPage";
+import VehicleInformationPage from "views/examples/VehicleInformationPage";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
@@ -25,6 +27,8 @@ root.render(
       <Route path="/profile-page" element={<ProfilePage />} />
       <Route path="/login-page" element={<LoginPage />} />
       <Route path="/insurance" element={<Insurance />} />
+      <Route path="/signup" element={<SignUpPage />} />
+      <Route path="/vehicle-info" element={<VehicleInformationPage />} />
 
       <Route path="*" element={<Navigate to="/index" replace />} />
     </Routes>

@@ -5,7 +5,8 @@ import{
   CardImg,
   CardImgOverlay,
   CardTitle,
-  CardText
+  CardText, 
+  Table
 } from "reactstrap";
 // core components
 
@@ -45,7 +46,6 @@ function VehicleSpecCard(){
               </tbody>
             </Table>
           </CardText>
-          <CardText>Last updated 3 mins ago</CardText>
         </CardImgOverlay>
       </Card>
     </>
