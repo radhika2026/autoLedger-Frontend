@@ -16,6 +16,7 @@ import ProfilePage from "views/examples/ProfilePage.js";
 import Insurance from "views/examples/Insurance.js";
 import VehicleInformationPage from  "views/examples/VehicleInformationPage";
 import CreateCarEntry from "views/examples/CreateCarEntry.js";
+import ServiceCenter from "views/examples/ServiceCenter.js";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(

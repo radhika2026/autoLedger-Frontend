@@ -1,26 +1,20 @@
 import React from "react";
 // reactstrap components
-import{
+import {
   Card,
   CardImg,
   CardImgOverlay,
   CardTitle,
   CardText,
-  ListGroup,         // Add this line
-  ListGroupItem      // Add this line
+  ListGroup,
+  ListGroupItem
 } from "reactstrap";
 // core components
 
-function VehicleOwnerInfoCard(){
-
-    const ownerDetails = {
-        Name: "John Doe",
-        Address: "123 Main St, Anytown, USA",
-        ContactNumber: "555-1234",
-        Email: "john.doe@example.com",
-        PurchaseDate: "2021-06-15"
-    };
-    
+function VehicleOwnerInfoCard(ownerData) {
+  console.log("ownerData", ownerData.ownerData);
+  // Sample ownerData array
+  const data =  ownerData.ownerData;
   return (
     <>
       <Card className="bg-dark">
@@ -31,13 +25,19 @@ function VehicleOwnerInfoCard(){
         <CardImgOverlay>
           <CardTitle tag="h4">Vehicle Owner History</CardTitle>
           <CardText>
-            <ListGroup className="list-group-flush">
-                {Object.entries(ownerDetails).map(([key, value]) => (
-                <ListGroupItem key={key} className="bg-transparent border-0">
-                    <strong>{key}:</strong> {value}
+            {data.map((owner, index) => (
+              <ListGroup key={index} className="list-group-flush">
+                <ListGroupItem className="bg-transparent border-0">
+                  <strong>Owner Name:</strong> {owner.ownerName}
                 </ListGroupItem>
-                ))}
-            </ListGroup>
+                <ListGroupItem className="bg-transparent border-0">
+                  <strong>Ownership Start Date:</strong> {owner.ownershipStartDate}
+                </ListGroupItem>
+                <ListGroupItem className="bg-transparent border-0">
+                  <strong>Ownership End Date:</strong> {owner.ownershipEndDate}
+                </ListGroupItem>
+              </ListGroup>
+            ))}
           </CardText>
         </CardImgOverlay>
       </Card>
@@ -45,4 +45,4 @@ function VehicleOwnerInfoCard(){
   );
 }
 
-export default VehicleOwnerInfoCard
+export default VehicleOwnerInfoCard;

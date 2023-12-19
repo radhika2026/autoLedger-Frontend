@@ -11,24 +11,8 @@ import{
 } from "reactstrap";
 // core components
 
-function VehicleServiceHistoryCard(){
+function VehicleServiceHistoryCard(serviceHistory){
 
-    const serviceHistory = [
-        {
-            date: "2023-01-15",
-            serviceType: "Oil Change",
-            serviceCenter: "AutoWorks Center",
-            remarks: "Regular maintenance"
-        },
-        {
-            date: "2022-12-01",
-            serviceType: "Tire Rotation",
-            serviceCenter: "TyrePlus Service",
-            remarks: "Winter tire installation"
-        },
-        // ... more history items
-    ];
-    
   return (
     <>
       <Card className="bg-dark">
@@ -40,12 +24,11 @@ function VehicleServiceHistoryCard(){
           <CardTitle tag="h4">Vehicle Service History</CardTitle>
           <CardText>
             <ListGroup className="list-group-flush">
-                {serviceHistory.map((event, index) => (
+                {serviceHistory.serviceHistory.map((event, index) => (
                     <ListGroupItem key={index} className="bg-transparent border-0">
-                        <strong>Date:</strong> {event.date} <br />
-                        <strong>Service Type:</strong> {event.serviceType} <br />
+                        <strong>Date:</strong> {event.serviceDate} <br />
                         <strong>Service Center:</strong> {event.serviceCenter} <br />
-                        <strong>Remarks:</strong> {event.remarks}
+                        <strong>Remarks:</strong> {event.serviceDescription}
                     </ListGroupItem>
                 ))}
             </ListGroup>

@@ -1,30 +1,16 @@
 import React from "react";
 // reactstrap components
-import{
+import {
   Card,
   CardImg,
   CardImgOverlay,
   CardTitle,
-  CardText, 
+  CardText,
   Table
 } from "reactstrap";
 // core components
 
-function VehicleSpecCard(){
-
-    const vehicleSpecs = {
-        Engine: "V8 Turbo",
-        VIN: "1HGBH41JXMN109186",
-        ChasisNumber: "MN109186S",
-        Seats: 5,
-        TypeOfDrive: "AWD",
-        FuelType: "Petrol",
-        ClassOfVehicle: "SUV",
-        ModelName: "X5",
-        CarMake: "BMW",
-        Year: 2021
-      };
-    
+function VehicleSpecCard(vehicleSpecs) {
   return (
     <>
       <Card className="bg-dark">
@@ -37,12 +23,17 @@ function VehicleSpecCard(){
           <CardText>
             <Table dark bordered responsive>
               <tbody>
-                {Object.entries(vehicleSpecs).map(([key, value]) => (
-                  <tr key={key}>
-                    <th scope="row">{key}</th>
-                    <td>{value}</td>
-                  </tr>
-                ))}
+                {Object.entries(vehicleSpecs).map(([key, value]) => {
+                  if (typeof value === 'string') {
+                    return (
+                      <tr key={key}>
+                        <th scope="row">{key}</th>
+                        <td>{value}</td>
+                      </tr>
+                    );
+                  }
+                  return null;
+                })}
               </tbody>
             </Table>
           </CardText>
@@ -52,4 +43,4 @@ function VehicleSpecCard(){
   );
 }
 
-export default VehicleSpecCard
+export default VehicleSpecCard;

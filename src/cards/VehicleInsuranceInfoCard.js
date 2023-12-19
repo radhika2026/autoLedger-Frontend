@@ -1,26 +1,30 @@
 import React from "react";
 // reactstrap components
-import{
+import {
   Card,
   CardImg,
   CardImgOverlay,
   CardTitle,
   CardText,
-  ListGroup,         // Add this line
-  ListGroupItem      // Add this line
+  ListGroup,
+  ListGroupItem,
 } from "reactstrap";
 // core components
 
-function VehicleInsuranceInfoCard(){
+function VehicleInsuranceInfoCard(insuranceDetails) {
+  // const insuranceDetails = [
+  //   {
+  //     date: "12-10-2021",
+  //     cost: "3000",
+  //     description: "The car is involved in an accident at the intersection of Street A and Street B. There are visible dents and scratches on the front side."
+  //   },
+  //   {
+  //     date: "10-04-2018",
+  //     cost: "1000",
+  //     description: "A minor collision occurred with another vehicle at Intersection X causing minor dents for the car bumper."
+  //   }
+  // ];
 
-    const insuranceDetails = {
-        PolicyNumber: "POL1234567",
-        Insurer: "Insurance Company Name",
-        ExpiryDate: "2024-01-01",
-        CoverageType: "Comprehensive",
-        Premium: "$500 annually"
-      };
-    
   return (
     <>
       <Card className="bg-dark">
@@ -29,20 +33,26 @@ function VehicleInsuranceInfoCard(){
           data-src="holder.js/100px270/#55595c:#373a3c/text:Card image"
         ></CardImg>
         <CardImgOverlay>
-          <CardTitle tag="h4">Vehicle Insurance Detals</CardTitle>
-          <CardText>
-          <ListGroup>
-              {Object.entries(insuranceDetails).map(([key, value]) => (
-                <ListGroupItem key={key} className="bg-transparent border-0">
-                  <strong>{key}:</strong> {value}
+          <CardTitle tag="h4">Vehicle Insurance Details</CardTitle>
+          {insuranceDetails.insuranceDetails.map((detail, index) => (
+            <CardText key={index}>
+              <ListGroup className="list-group-flush">
+                <ListGroupItem className="bg-transparent border-0">
+                  <strong>Date:</strong> {detail.date}
                 </ListGroupItem>
-              ))}
-            </ListGroup>
-          </CardText>
+                <ListGroupItem className="bg-transparent border-0">
+                  <strong>Cost:</strong> {detail.cost}
+                </ListGroupItem>
+                <ListGroupItem className="bg-transparent border-0">
+                  <strong>Description:</strong> {detail.description}
+                </ListGroupItem>
+              </ListGroup>
+            </CardText>
+          ))}
         </CardImgOverlay>
       </Card>
     </>
   );
 }
 
-export default VehicleInsuranceInfoCard
+export default VehicleInsuranceInfoCard;
