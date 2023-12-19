@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 // reactstrap components
 import {
   UncontrolledCollapse, 
+  UncontrolledDropdown,
+  DropdownItem, 
+  DropdownMenu, 
+  DropdownToggle,
   NavbarBrand,
   Navbar,
   NavItem,
@@ -14,7 +18,7 @@ import {
 
 
 var isLoggedIn = true;
-var userRole = "Owner"; 
+var userRole = "DMV"; 
 
 function ExamplesNavbar() {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -71,11 +75,34 @@ function ExamplesNavbar() {
                     </NavLink>
                   </NavItem>
                   {userRole === 'DMV' && (
-                    <NavItem>
-                      <NavLink to="#DMV-Page" tag={Link}>
-                        DMV
-                      </NavLink>
-                    </NavItem>
+                    <UncontrolledDropdown nav>
+                  <DropdownToggle
+                    aria-haspopup={true}
+                    caret
+                    color="default"
+                    data-toggle="dropdown"
+                    href="#pablo"
+                    id="navbarDropdownMenuLink"
+                    nav
+                    onClick={e => e.preventDefault()}
+                  >
+                    DMV
+                  </DropdownToggle>
+                  <DropdownMenu aria-labelledby="navbarDropdownMenuLink">
+                    <DropdownItem
+                      href="#pablo"
+                      onClick={e => e.preventDefault()}
+                    >
+                      Add a new Car
+                    </DropdownItem>
+                    <DropdownItem
+                      href="#pablo"
+                      onClick={e => e.preventDefault()}
+                    >
+                      Modify Existing Car
+                    </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
                   )}
                   {userRole === 'Service Center' && (
                     <NavItem>
