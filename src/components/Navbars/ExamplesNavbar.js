@@ -1,22 +1,28 @@
 import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 // reactstrap components
 import {
-  Collapse,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
+  UncontrolledCollapse, 
   UncontrolledDropdown,
+  DropdownItem, 
+  DropdownMenu, 
+  DropdownToggle,
   NavbarBrand,
   Navbar,
   NavItem,
   NavLink,
   Nav,
   Container,
-  UncontrolledTooltip,
 } from "reactstrap";
 
+
+var isLoggedIn = true;
+var userRole = "DMV"; 
+
 function ExamplesNavbar() {
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [userRole, setUserRole] = useState("");
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [collapseOpen, setCollapseOpen] = React.useState(false);
   React.useEffect(() => {
@@ -38,111 +44,106 @@ function ExamplesNavbar() {
       window.removeEventListener("scroll", updateNavbarColor);
     };
   });
+
   return (
     <>
-      {collapseOpen ? (
-        <div
-          id="bodyClick"
-          onClick={() => {
-            document.documentElement.classList.toggle("nav-open");
-            setCollapseOpen(false);
-          }}
-        />
-      ) : null}
       <Navbar className={"fixed-top " + navbarColor} color="info" expand="lg">
         <Container>
-          <UncontrolledDropdown className="button-dropdown">
-            <DropdownToggle
-              caret
-              data-toggle="dropdown"
-              href="#pablo"
-              id="navbarDropdown"
-              tag="a"
-              onClick={(e) => e.preventDefault()}
-            >
-              <span className="button-bar"></span>
-              <span className="button-bar"></span>
-              <span className="button-bar"></span>
-            </DropdownToggle>
-            <DropdownMenu aria-labelledby="navbarDropdown">
-              <DropdownItem header tag="a">
-                Dropdown header
-              </DropdownItem>
-              <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
-                Action
-              </DropdownItem>
-              <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
-                Another action
-              </DropdownItem>
-              <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
-                Something else here
-              </DropdownItem>
-              <DropdownItem divider></DropdownItem>
-              <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
-                Separated link
-              </DropdownItem>
-              <DropdownItem divider></DropdownItem>
-              <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
-                One more separated link
-              </DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
-          <div className="navbar-translate">
-            <NavbarBrand
-              href="https://demos.creative-tim.com/now-ui-kit-react/index?ref=nukr-examples-navbar"
-              target="_blank"
-              id="navbar-brand"
-            >
-              Now Ui Kit
-            </NavbarBrand>
-            <UncontrolledTooltip target="#navbar-brand">
-              Designed by Invision. Coded by Creative Tim
-            </UncontrolledTooltip>
-            <button
-              className="navbar-toggler navbar-toggler"
-              onClick={() => {
-                document.documentElement.classList.toggle("nav-open");
-                setCollapseOpen(!collapseOpen);
-              }}
-              aria-expanded={collapseOpen}
-              type="button"
-            >
-              <span className="navbar-toggler-bar top-bar"></span>
-              <span className="navbar-toggler-bar middle-bar"></span>
-              <span className="navbar-toggler-bar bottom-bar"></span>
-            </button>
-          </div>
-          <Collapse
-            className="justify-content-end"
-            isOpen={collapseOpen}
-            navbar
+          <NavbarBrand href="#pablo" onClick={e => e.preventDefault()}>
+            AutoLedger
+          </NavbarBrand>
+          <button
+            className="navbar-toggler"
+            id="navbarNavDropdown"
+            type="button"
           >
-            <Nav navbar>
-              <NavItem>
-                <NavLink to="/index" tag={Link}>
-                  Home
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <UncontrolledCollapse navbar toggler="#navbarNavDropdown">
+            <Nav navbar className="w-100">
+              <NavItem className="active">
+                <NavLink href="#pablo" onClick={e => e.preventDefault()}>
+                  Home <span className="sr-only">(current)</span>
                 </NavLink>
               </NavItem>
-              <NavItem>
-                <NavLink href="https://github.com/radhika2026/AutoLedger/issues/new">
-                  Have an issue?
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  href="https://github.com/radhika2026/autoLedger"
-                  target="_blank"
-                  id="twitter-tooltip"
-                >
-                  <i className="fab fa-github"></i>
-                  <p className="d-lg-none d-xl-none">Github</p>
-                </NavLink>
-                <UncontrolledTooltip target="#twitter-tooltip">
-                  Follow us on Github
-                </UncontrolledTooltip>
-              </NavItem>
+              {/* Conditional links */}
+              {isLoggedIn ? (
+                <>
+                  <NavItem>
+                    <NavLink to="/search" tag={Link}>
+                      Search
+                    </NavLink>
+                  </NavItem>
+                  {userRole === 'DMV' && (
+                    <UncontrolledDropdown nav>
+                  <DropdownToggle
+                    aria-haspopup={true}
+                    caret
+                    color="default"
+                    data-toggle="dropdown"
+                    href="#pablo"
+                    id="navbarDropdownMenuLink"
+                    nav
+                    onClick={e => e.preventDefault()}
+                  >
+                    DMV
+                  </DropdownToggle>
+                  <DropdownMenu aria-labelledby="navbarDropdownMenuLink">
+                    <DropdownItem
+                      href="#pablo"
+                      onClick={e => e.preventDefault()}
+                    >
+                      Add a new Car
+                    </DropdownItem>
+                    <DropdownItem
+                      href="#pablo"
+                      onClick={e => e.preventDefault()}
+                    >
+                      Modify Existing Car
+                    </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+                  )}
+                  {userRole === 'Service Center' && (
+                    <NavItem>
+                      <NavLink to="#service-center" tag={Link}>
+                        Service Center
+                      </NavLink>
+                    </NavItem>
+                  )}
+                  {userRole === 'Insurance' && (
+                    <NavItem>
+                      <NavLink to="/insurance" tag={Link}>
+                        Insurance
+                      </NavLink>
+                    </NavItem>
+                  )}
+                  <div className="ml-auto" style={{ display: 'flex' }}>
+                  <NavItem>
+                    <NavLink to="#profile-page" tag={Link}>
+                      Profile
+                    </NavLink>
+                  </NavItem>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="ml-auto" style={{ display: 'flex' }}>
+                  <NavItem>
+                    <NavLink to="/login-page" tag={Link} >
+                      Login
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink to="/signup-page" tag={Link}>
+                      Signup
+                    </NavLink>
+                  </NavItem>
+                  </div>
+                </>
+              )}
             </Nav>
-          </Collapse>
+          </UncontrolledCollapse>
         </Container>
       </Navbar>
     </>
