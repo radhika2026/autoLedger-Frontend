@@ -15,7 +15,7 @@ import {
 // core components
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import LandingPageHeader from "components/Headers/LandingPageHeader.js";
-import DefaultFooter from "components/Footers/DefaultFooter.js";
+import TransparentFooter from "components/Footers/TransparentFooter.js";
 
 function LandingPage() {
   const [firstFocus, setFirstFocus] = React.useState(false);
@@ -59,7 +59,9 @@ function LandingPage() {
                     }}
                   >
                     <p className="blockquote blockquote-info">
-                      "This project is based on ResilientDB, which is the in-house blockchain fabric developed at the University of California, Davis." <br></br>
+                      "This project is based on ResilientDB, which is the
+                      in-house blockchain fabric developed at the University of
+                      California, Davis." <br></br>
                       <br></br>
                     </p>
                   </div>
@@ -244,7 +246,7 @@ function LandingPage() {
             </div> */}
           </Container>
         </div>
-        <div className="section section-contact-us text-center">
+        {/* <div className="section section-contact-us text-center">
           <Container>
             <h2 className="title">Want to work with us?</h2>
             <p className="description">Your project is very important to us.</p>
@@ -308,8 +310,8 @@ function LandingPage() {
               </Col>
             </Row>
           </Container>
-        </div>
-        <DefaultFooter />
+        </div> */}
+        <TransparentFooter />
       </div>
     </>
   );

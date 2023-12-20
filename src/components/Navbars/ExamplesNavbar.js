@@ -3,10 +3,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 // reactstrap components
 import {
-  UncontrolledCollapse, 
+  UncontrolledCollapse,
   UncontrolledDropdown,
-  DropdownItem, 
-  DropdownMenu, 
+  DropdownItem,
+  DropdownMenu,
   DropdownToggle,
   NavbarBrand,
   Navbar,
@@ -16,9 +16,8 @@ import {
   Container,
 } from "reactstrap";
 
-
 var isLoggedIn = true;
-var userRole = "DMV"; 
+var userRole = "DMV";
 
 function ExamplesNavbar() {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -49,7 +48,7 @@ function ExamplesNavbar() {
     <>
       <Navbar className={"fixed-top " + navbarColor} color="info" expand="lg">
         <Container>
-          <NavbarBrand href="#pablo" onClick={e => e.preventDefault()}>
+          <NavbarBrand href="#pablo" onClick={(e) => e.preventDefault()}>
             AutoLedger
           </NavbarBrand>
           <button
@@ -62,7 +61,7 @@ function ExamplesNavbar() {
           <UncontrolledCollapse navbar toggler="#navbarNavDropdown">
             <Nav navbar className="w-100">
               <NavItem className="active">
-                <NavLink href="#pablo" onClick={e => e.preventDefault()}>
+                <NavLink href="#pablo" onClick={(e) => e.preventDefault()}>
                   Home <span className="sr-only">(current)</span>
                 </NavLink>
               </NavItem>
@@ -74,71 +73,71 @@ function ExamplesNavbar() {
                       Search
                     </NavLink>
                   </NavItem>
-                  {userRole === 'DMV' && (
+                  {userRole === "DMV" && (
                     <UncontrolledDropdown nav>
-                  <DropdownToggle
-                    aria-haspopup={true}
-                    caret
-                    color="default"
-                    data-toggle="dropdown"
-                    href="#pablo"
-                    id="navbarDropdownMenuLink"
-                    nav
-                    onClick={e => e.preventDefault()}
-                  >
-                    DMV
-                  </DropdownToggle>
-                  <DropdownMenu aria-labelledby="navbarDropdownMenuLink">
-                    <DropdownItem
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                    >
-                      Add a new Car
-                    </DropdownItem>
-                    <DropdownItem
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                    >
-                      Modify Existing Car
-                    </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
+                      <DropdownToggle
+                        aria-haspopup={true}
+                        caret
+                        color="default"
+                        data-toggle="dropdown"
+                        href="#pablo"
+                        id="navbarDropdownMenuLink"
+                        nav
+                        onClick={(e) => e.preventDefault()}
+                      >
+                        DMV
+                      </DropdownToggle>
+                      <DropdownMenu aria-labelledby="navbarDropdownMenuLink">
+                        <DropdownItem
+                          href="#pablo"
+                          onClick={(e) => e.preventDefault()}
+                        >
+                          Add a new Car
+                        </DropdownItem>
+                        <DropdownItem
+                          href="#pablo"
+                          onClick={(e) => e.preventDefault()}
+                        >
+                          Modify Existing Car
+                        </DropdownItem>
+                      </DropdownMenu>
+                    </UncontrolledDropdown>
                   )}
-                  {userRole === 'Service Center' && (
+                  {userRole === "Service Center" && (
                     <NavItem>
                       <NavLink to="#service-center" tag={Link}>
                         Service Center
                       </NavLink>
                     </NavItem>
                   )}
-                  {userRole === 'Insurance' && (
+                  {userRole === "Insurance" && (
                     <NavItem>
                       <NavLink to="/insurance" tag={Link}>
                         Insurance
                       </NavLink>
                     </NavItem>
                   )}
-                  <div className="ml-auto" style={{ display: 'flex' }}>
-                  <NavItem>
-                    <NavLink to="#profile-page" tag={Link}>
-                      Profile
-                    </NavLink>
-                  </NavItem>
+                  <div className="ml-auto" style={{ display: "flex" }}>
+                    <NavItem>
+                      <NavLink to="/profile" tag={Link}>
+                        Profile
+                      </NavLink>
+                    </NavItem>
                   </div>
                 </>
               ) : (
                 <>
-                  <div className="ml-auto" style={{ display: 'flex' }}>
-                  <NavItem>
-                    <NavLink to="/login-page" tag={Link} >
-                      Login
-                    </NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink to="/signup-page" tag={Link}>
-                      Signup
-                    </NavLink>
-                  </NavItem>
+                  <div className="ml-auto" style={{ display: "flex" }}>
+                    <NavItem>
+                      <NavLink to="/login-page" tag={Link}>
+                        Login
+                      </NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <NavLink to="/signup-page" tag={Link}>
+                        Signup
+                      </NavLink>
+                    </NavItem>
                   </div>
                 </>
               )}
