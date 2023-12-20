@@ -17,6 +17,7 @@ import Insurance from "views/examples/Insurance.js";
 import VehicleInformationPage from  "views/examples/VehicleInformationPage";
 import CreateCarEntry from "views/examples/CreateCarEntry.js";
 import ServiceCenter from "views/examples/ServiceCenter.js";
+import SearchPage from "views/examples/SearchPage";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
@@ -31,6 +32,7 @@ root.render(
       <Route path="/service-center" element={<ServiceCenter />} />
       <Route path="/create-car-entry" element={<CreateCarEntry />} />
       <Route path="/vehicle-info" element={<VehicleInformationPage />} />
+      <Route path="/search" element={<SearchPage />} />
 
       <Route path="*" element={<Navigate to="/index" replace />} />
     </Routes>
