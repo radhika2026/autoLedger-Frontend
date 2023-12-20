@@ -213,10 +213,9 @@ import {
                         <h6>
                           <a
                             className="link"
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
+                            href="/login-page"
                           >
-                            Create Account
+                            Login
                           </a>
                         </h6>
                       </div>

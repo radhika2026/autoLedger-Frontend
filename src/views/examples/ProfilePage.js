@@ -6,17 +6,16 @@ import { Container } from "reactstrap";
 
 // core components
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
-import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 import DefaultFooter from "components/Footers/DefaultFooter.js";
 
 function ProfilePage() {
   let pageHeader = React.createRef();
 
-  const userName = "Radhika Gupta";
-  const idNo = 12345;
-  const email = "rkagupta@ucdavis.edu";
-  const userRole = "DMV";
-  const drivingLicense = "12345678";
+  const userName =  Cookies.get('userName')
+  const userRole =  Cookies.get('userRole')
+  const idNo =  Cookies.get('idNo')
+  const email = Cookies.get('email')
+  const drivingLicense = Cookies.get('drivingLicense')
 
   
   React.useEffect(() => {
