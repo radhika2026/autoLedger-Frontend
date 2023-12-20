@@ -16,10 +16,6 @@ function VehicleServiceHistoryCard(serviceHistory){
   return (
     <>
       <Card className="bg-dark">
-        <CardImg
-          alt="..."
-          data-src="holder.js/100px270/#55595c:#373a3c/text:Card image"
-        ></CardImg>
         <CardImgOverlay>
           <CardTitle tag="h4">Vehicle Service History</CardTitle>
           <CardText>

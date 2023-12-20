@@ -1,4 +1,9 @@
 import React from "react";
+import { useState } from "react";
+import { FETCH_USER } from "utils/resdb";
+import { sendRequest } from "utils/resdbApi";
+import Cookies from 'js-cookie';
+import { useNavigate } from "react-router-dom";
 
 // reactstrap components
 import {
@@ -21,6 +26,67 @@ import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import TransparentFooter from "components/Footers/TransparentFooter.js";
 
 function LoginPage() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
+  const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+
+  const validateForm = () => {
+    let tempErrors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    tempErrors.email = emailRegex.test(email) ? "" : "Email is not valid.";
+    tempErrors.password =
+      password.length >= 8
+        ? ""
+        : "Password must be at least 8 characters long.";
+    setErrors(tempErrors);
+    return Object.values(tempErrors).every((x) => x === "");
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      try {
+        const res = await sendRequest(FETCH_USER(email, password));
+        
+        console.log("added successfully ", res);
+
+        if (Object.keys(res).length !== 0) {
+          Cookies.set('isLoggedIn', 'true', { expires: 1 }); // Expires in 1 day
+          Cookies.set('userName', res.data.getUserTransaction.userName)
+          Cookies.set('userRole', res.data.getUserTransaction.userRole)
+          Cookies.set('idNo', res.data.getUserTransaction.idNo)
+          Cookies.set('email', res.data.getUserTransaction.email)
+          Cookies.set('drivingLicense', res.data.getUserTransaction.drivingLicense)
+
+          console.log('Log In: ', Cookies.get('isLoggedIn'), 
+          'Role:', Cookies.get('userRole'), 
+          'ID: ', Cookies.get('idNo'), 
+          'Email:', Cookies.get('email'), 
+          'Driving License', Cookies.get('drivingLicense'))
+          navigate("/search");
+
+        } 
+        else {
+          setToastMessage("Invalid credentials!");
+          setShowToast(true);
+        }
+      } catch (error) {
+        // Handle error
+        setToastMessage("Error Login, check later!");
+        setShowToast(true);
+      }
+    } else {
+      setToastMessage("Error! Check Entries!");
+      setShowToast(true);
+    }
+  };
+
+
   const [firstFocus, setFirstFocus] = React.useState(false);
   const [lastFocus, setLastFocus] = React.useState(false);
   React.useEffect(() => {
@@ -73,7 +139,8 @@ function LoginPage() {
                       </InputGroupAddon>
                       <Input
                         placeholder="Email"
-                        type="text"
+                        type="email"
+                        onChange={(e) => setEmail(e.target.value)}
                         onFocus={() => setFirstFocus(true)}
                         onBlur={() => setFirstFocus(false)}
                       ></Input>
@@ -91,7 +158,8 @@ function LoginPage() {
                       </InputGroupAddon>
                       <Input
                         placeholder="Password"
-                        type="text"
+                        type="password"
+                        onChange={(e) => setPassword(e.target.value)}
                         onFocus={() => setLastFocus(true)}
                         onBlur={() => setLastFocus(false)}
                       ></Input>

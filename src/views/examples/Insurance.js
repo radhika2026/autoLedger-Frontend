@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Cookies from 'js-cookie';
+
 // reactstrap components
 import {
   Form,
@@ -12,7 +14,6 @@ import {
 // core components
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import TransparentFooter from "components/Footers/TransparentFooter.js";
-
 import { FETCH_CAR, UPDATE_CAR } from "utils/resdb";
 import { sendRequest } from "utils/resdbApi";
 const metadata = {
@@ -22,6 +23,7 @@ const metadata = {
 };
 
 function Insurance() {
+  const userRole = Cookies.get("userRole");
   const [formData, setFormData] = useState({
     cost: "",
     date: "",
@@ -79,6 +81,7 @@ function Insurance() {
     } catch (error) {}
   };
 
+if (userRole === "Insurance") {
   return (
     <>
       <ExamplesNavbar />
@@ -153,6 +156,11 @@ function Insurance() {
       </div>
     </>
   );
+} else {
+  <>
+  <h1>Permission Denied</h1>
+  </>
+}
 }
 
 export default Insurance;

@@ -17,11 +17,7 @@ function VehicleOwnerInfoCard(ownerData) {
   const data =  ownerData.ownerData;
   return (
     <>
-      <Card className="bg-dark">
-        <CardImg
-          alt="..."
-          data-src="holder.js/100px270/#55595c:#373a3c/text:Card image"
-        ></CardImg>
+      <Card className="bg-dark" >
         <CardImgOverlay>
           <CardTitle tag="h4">Vehicle Owner History</CardTitle>
           <CardText>

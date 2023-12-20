@@ -5,7 +5,7 @@ import "assets/scss/now-ui-kit.scss?v=1.5.0";
 import "assets/demo/demo.css?v=1.5.0";
 import "assets/demo/nucleo-icons-page-styles.css?v=1.5.0";
 
-import { Container, Row } from "reactstrap";
+import { Container, Col, Row } from "reactstrap";
 
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import TransparentFooter from "components/Footers/TransparentFooter.js";
@@ -83,30 +83,34 @@ var carData = {
 
 function VehicleInformationPage() {
   return (
-    <Container>
-      <Row className="md-12" style={{ marginBottom: "5rem" }}>
-        <ExamplesNavbar />
-      </Row>
-      <Row className="md-12" style={{ marginBottom: "18rem" }}>
-        <VehicleOwnerInfoCard
-          ownerData={carData.data.getCarTransaction.ownerHistory}
-        />
-      </Row>
-      <Row className="md-12" style={{ marginBottom: "18rem" }}>
-        <VehicleInsuranceInfoCard
-          insuranceDetails={carData.data.getCarTransaction.insuranceHistory}
-        />
-      </Row>
-      <Row className="md-12" style={{ marginBottom: "20rem" }}>
-        <VehicleServiceHistoryCard serviceHistory={carData.data.getCarTransaction.servicingHistory}/>
-      </Row>
-      <Row className="md-12" style={{ marginBottom: "5rem" }}>
-        <VehicleSpecCard vehicleSpecs = { carData.data.getCarTransaction}/>
-      </Row>
-      <Row className="md-12">
+    <>
+      <ExamplesNavbar />
+      <div className="page-header clear-filter" filter-color="blue">
+        {/* <div className="content"> */}
+        <Container className="pb-5"> {/* Bootstrap class for padding-bottom */}
+          <Col className="ml-auto mr-auto" md="12">
+            <VehicleOwnerInfoCard ownerData={carData.data.getCarTransaction.ownerHistory} />
+          </Col>
+        </Container>
+        <Container className="pb-5"> {/* Bootstrap classes for padding-top and padding-bottom */}
+          <Col className="ml-auto mr-auto" md="12">
+            <VehicleInsuranceInfoCard insuranceDetails={carData.data.getCarTransaction.insuranceHistory} />
+          </Col>
+        </Container>
+        {/* <Container>
+          <Row> 
+            <VehicleServiceHistoryCard serviceHistory={carData.data.getCarTransaction.servicingHistory}/>
+          </Row>
+        </Container>
+        <Container>
+          <Row> 
+            <VehicleSpecCard vehicleSpecs = { carData.data.getCarTransaction}/>
+          </Row>
+        </Container> */}
+        {/* </div> */}
         <TransparentFooter />
-      </Row>
-    </Container>
+      </div>
+    </>
   );
 }
 export default VehicleInformationPage;
