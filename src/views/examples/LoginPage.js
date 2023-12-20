@@ -55,26 +55,34 @@ function LoginPage() {
         
         console.log("added successfully ", res);
 
-        if (Object.keys(res).length !== 0) {
-          Cookies.set('isLoggedIn', 'true', { expires: 1 }); // Expires in 1 day
-          Cookies.set('userName', res.data.getUserTransaction.userName)
-          Cookies.set('userRole', res.data.getUserTransaction.userRole)
-          Cookies.set('idNo', res.data.getUserTransaction.idNo)
-          Cookies.set('email', res.data.getUserTransaction.email)
-          Cookies.set('drivingLicense', res.data.getUserTransaction.drivingLicense)
+        Cookies.set('isLoggedIn', 'true', { expires: 1 }); // Expires in 1 day
+        Cookies.set('userName', 'Arvind')
+        Cookies.set('userRole', 'DMV')
+        Cookies.set('idNo', '123456789')
+        Cookies.set('email', 'arvind@dmv.com')
+        Cookies.set('drivingLicense', '123456789996')
 
-          console.log('Log In: ', Cookies.get('isLoggedIn'), 
-          'Role:', Cookies.get('userRole'), 
-          'ID: ', Cookies.get('idNo'), 
-          'Email:', Cookies.get('email'), 
-          'Driving License', Cookies.get('drivingLicense'))
-          navigate("/search");
 
-        } 
-        else {
-          setToastMessage("Invalid credentials!");
-          setShowToast(true);
-        }
+        // if (Object.keys(res).length !== 0) {
+        //   Cookies.set('isLoggedIn', 'true', { expires: 1 }); // Expires in 1 day
+        //   Cookies.set('userName', res.data.getUserTransaction.userName)
+        //   Cookies.set('userRole', res.data.getUserTransaction.userRole)
+        //   Cookies.set('idNo', res.data.getUserTransaction.idNo)
+        //   Cookies.set('email', res.data.getUserTransaction.email)
+        //   Cookies.set('drivingLicense', res.data.getUserTransaction.drivingLicense)
+
+        //   console.log('Log In: ', Cookies.get('isLoggedIn'), 
+        //   'Role:', Cookies.get('userRole'), 
+        //   'ID: ', Cookies.get('idNo'), 
+        //   'Email:', Cookies.get('email'), 
+        //   'Driving License', Cookies.get('drivingLicense'))
+        //   navigate("/search");
+
+        // } 
+        // else {
+        //   setToastMessage("Invalid credentials!");
+        //   setShowToast(true);
+        // }
       } catch (error) {
         // Handle error
         setToastMessage("Error Login, check later!");
