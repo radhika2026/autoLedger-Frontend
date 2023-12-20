@@ -1,6 +1,7 @@
 import React from "react";
-import { useState } from "react";
 import { Link } from "react-router-dom";
+import Cookies from 'js-cookie';
+
 // reactstrap components
 import {
   UncontrolledCollapse,
@@ -16,8 +17,8 @@ import {
   Container,
 } from "reactstrap";
 
-var isLoggedIn = true;
-var userRole = "DMV";
+var isLoggedIn = Cookies.get('isLoggedIn');;
+var userRole = Cookies.get('userRole');
 
 function ExamplesNavbar() {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -127,17 +128,17 @@ function ExamplesNavbar() {
                 </>
               ) : (
                 <>
-                  <div className="ml-auto" style={{ display: "flex" }}>
-                    <NavItem>
-                      <NavLink to="/login-page" tag={Link}>
-                        Login
-                      </NavLink>
-                    </NavItem>
-                    <NavItem>
-                      <NavLink to="/signup-page" tag={Link}>
-                        Signup
-                      </NavLink>
-                    </NavItem>
+                  <div className="ml-auto" style={{ display: 'flex' }}>
+                  <NavItem>
+                    <NavLink to="/login-page" tag={Link} >
+                      Login
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink to="/sign-up" tag={Link}>
+                      Signup
+                    </NavLink>
+                  </NavItem>
                   </div>
                 </>
               )}

@@ -18,6 +18,7 @@ import VehicleInformationPage from "views/examples/VehicleInformationPage";
 import CreateCarEntry from "views/examples/CreateCarEntry.js";
 import ServiceCenter from "views/examples/ServiceCenter.js";
 import SearchPage from "views/examples/SearchPage";
+import SignUpPage from "views/examples/SignUpPage";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
@@ -27,6 +28,7 @@ root.render(
       <Route path="/nucleo-icons" element={<NucleoIcons />} />
       <Route path="/landing-page" element={<LandingPage />} />
       <Route path="/login-page" element={<LoginPage />} />
+      <Route path="/sign-up" element={<SignUpPage />} />
       <Route path="/insurance" element={<Insurance />} />
       <Route path="/service-center" element={<ServiceCenter />} />
       <Route path="/create-car-entry" element={<CreateCarEntry />} />

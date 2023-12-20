@@ -1,5 +1,6 @@
 import React from 'react'
 import SearchComponent from './SearchComponent'
+import Cookies from 'js-cookie';
 
 import {
     Container,
@@ -12,7 +13,10 @@ import TransparentFooter from "components/Footers/TransparentFooter.js";
 
 
 function SearchPage() {
-    return (
+  const isLoggedIn = Cookies.get('isLoggedIn');
+
+    if (isLoggedIn) {
+      return (
         <>
           <ExamplesNavbar />
           <div className="page-header clear-filter" filter-color="blue">
@@ -33,6 +37,11 @@ function SearchPage() {
           </div>
         </>
       );
+    } else {
+      <>
+      <h1>Permission Denied</h1>
+      </> 
+    }
     }    
 
 export default SearchPage

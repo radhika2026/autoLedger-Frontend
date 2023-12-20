@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import Cookies from 'js-cookie';
+
 // reactstrap components
 import {
   Form,
   FormGroup,
   Input,
-  FormText,
   Button,
   Label,
   Container,
@@ -22,6 +23,7 @@ const metadata = {
 };
 
 function ServiceCenter() {
+    const userRole = Cookies.get("userRole");
     const [formData, setFormData] = useState({
         serviceCenter: "",
         serviceDate: "",
@@ -72,90 +74,96 @@ function ServiceCenter() {
     //CRITICAL: ADD Update Car API
   };
 
-  return (
-    <>
-      <ExamplesNavbar />
-      <div className="page-header clear-filter" filter-color="blue">
-        <div
-          className="section section-signup"
-          style={{
-            backgroundImage: "url(" + require("assets/img/formBg1.png") + ")",
-            backgroundSize: "cover",
-            backgroundPosition: "top center",
-            minHeight: "700px",
-          }}
-        >
-          <Container>
-            <Form onSubmit={handleSubmit}>
-              <FormGroup>
-                <label>License Plate</label>
-                <Input
-                  value={formData.numberPlate}
-                  type="text"
-                  name="numberPlate"
-                  onChange={handleChange}
-                  placeholder="Number Plate"
-                />
-              </FormGroup>
-              <FormGroup>
-                <label htmlFor="exampleInputPassword1">
-                  Date of Service
-                </label>
-                <Input
-                  placeholder="Date of Service"
-                  type="date"
-                  name="serviceDate"
-                  value={formData.serviceDate}
-                  onChange={handleChange}
-                ></Input>
-              </FormGroup>
-              <FormGroup>
-                <label htmlFor="exampleInputEmail1">Service Center Name</label>
-                <Input
-                  placeholder="Service Center Name"
-                  value={formData.serviceCenter}
-                  type="text"
-                  name="serviceCenter"
-                  onChange={handleChange}
-                ></Input>
-              </FormGroup>
-              <FormGroup>
-                <label htmlFor="exampleInputEmail1">Odometer Reading</label>
-                <Input
-                  placeholder="Odometer Reading"
-                  value={formData.odometerReading}
-                  type="number"
-                  name="odometerReading"
-                  onChange={handleChange}
-                ></Input>
-              </FormGroup>
-              <FormGroup>
-                <label htmlFor="exampleInputEmail1">Notes</label>
-                <Input
-                  placeholder="Add description of the incident"
-                  value={formData.serviceDescription}
-                  type="textarea"
-                  onChange={handleChange}
-                  name="serviceDescription"
-                />
-              </FormGroup>
-              <FormGroup check>
-                <Label check>
-                  <Input type="checkbox"></Input>
-                  <span className="form-check-sign"></span>
-                  Confirm
-                </Label>
-              </FormGroup>
-              <Button color="primary" type="submit">
-                Submit
-              </Button>
-            </Form>
-          </Container>
+  if (userRole === "Service Center") {
+    return (
+      <>
+        <ExamplesNavbar />
+        <div className="page-header clear-filter" filter-color="blue">
+          <div
+            className="section section-signup"
+            style={{
+              backgroundImage: "url(" + require("assets/img/formBg1.png") + ")",
+              backgroundSize: "cover",
+              backgroundPosition: "top center",
+              minHeight: "700px",
+            }}
+          >
+            <Container>
+              <Form onSubmit={handleSubmit}>
+                <FormGroup>
+                  <label>License Plate</label>
+                  <Input
+                    value={formData.numberPlate}
+                    type="text"
+                    name="numberPlate"
+                    onChange={handleChange}
+                    placeholder="Number Plate"
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <label htmlFor="exampleInputPassword1">
+                    Date of Service
+                  </label>
+                  <Input
+                    placeholder="Date of Service"
+                    type="date"
+                    name="serviceDate"
+                    value={formData.serviceDate}
+                    onChange={handleChange}
+                  ></Input>
+                </FormGroup>
+                <FormGroup>
+                  <label htmlFor="exampleInputEmail1">Service Center Name</label>
+                  <Input
+                    placeholder="Service Center Name"
+                    value={formData.serviceCenter}
+                    type="text"
+                    name="serviceCenter"
+                    onChange={handleChange}
+                  ></Input>
+                </FormGroup>
+                <FormGroup>
+                  <label htmlFor="exampleInputEmail1">Odometer Reading</label>
+                  <Input
+                    placeholder="Odometer Reading"
+                    value={formData.odometerReading}
+                    type="number"
+                    name="odometerReading"
+                    onChange={handleChange}
+                  ></Input>
+                </FormGroup>
+                <FormGroup>
+                  <label htmlFor="exampleInputEmail1">Notes</label>
+                  <Input
+                    placeholder="Add description of the incident"
+                    value={formData.serviceDescription}
+                    type="textarea"
+                    onChange={handleChange}
+                    name="serviceDescription"
+                  />
+                </FormGroup>
+                <FormGroup check>
+                  <Label check>
+                    <Input type="checkbox"></Input>
+                    <span className="form-check-sign"></span>
+                    Confirm
+                  </Label>
+                </FormGroup>
+                <Button color="primary" type="submit">
+                  Submit
+                </Button>
+              </Form>
+            </Container>
+          </div>
+          <TransparentFooter />
         </div>
-        <TransparentFooter />
-      </div>
+      </>
+    );
+  } else {
+    <>
+    <h1>Permission Denied</h1>
     </>
-  );
+  }
 }
 
 export default ServiceCenter;
