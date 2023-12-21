@@ -13,7 +13,7 @@ import {
 function VehicleSpecCard(vehicleSpecs) {
   return (
     <>
-      <Card className="bg-dark">
+      <Card className="bg-dark" style={{marginTop: '18rem', marginBottom: '18rem'}}>
         <CardImgOverlay>
           <CardTitle tag="h4">Vehicle Specifications</CardTitle>
           <CardText>

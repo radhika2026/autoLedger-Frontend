@@ -27,7 +27,7 @@ function VehicleInsuranceInfoCard(insuranceDetails) {
 
   return (
     <>
-      <Card className="bg-dark">
+      <Card className="bg-dark" style={{marginTop: '12rem', marginBottom: '18rem'}}>
         <CardImgOverlay>
           <CardTitle tag="h4">Vehicle Insurance Details</CardTitle>
           {insuranceDetails.insuranceDetails.map((detail, index) => (

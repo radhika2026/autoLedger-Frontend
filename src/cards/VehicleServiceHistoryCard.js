@@ -15,7 +15,7 @@ function VehicleServiceHistoryCard(serviceHistory){
 
   return (
     <>
-      <Card className="bg-dark">
+      <Card className="bg-dark" style={{marginTop: '10rem', marginBottom: '18rem'}}>
         <CardImgOverlay>
           <CardTitle tag="h4">Vehicle Service History</CardTitle>
           <CardText>

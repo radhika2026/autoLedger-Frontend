@@ -154,7 +154,8 @@ import {
                         <Input
                           placeholder="Name"
                           type="text"
-                          value={formData.name}
+                          name = "userName"
+                          value={formData.userName}
                           onChange={handleInputChange}                          
                           onFocus={() => setFirstFocus(true)}
                           onBlur={() => setFirstFocus(false)}
@@ -174,6 +175,7 @@ import {
                         <Input
                           placeholder="Email"
                           type="text"
+                          name = 'email'
                           value={formData.email}
                           onChange={handleInputChange}
                           onFocus={() => setFirstFocus(true)}
@@ -194,6 +196,7 @@ import {
                         <Input
                           placeholder="Password"
                           type="text"
+                          name = "password"
                           value={formData.password}
                           onChange={handleInputChange}
                           onFocus={() => setLastFocus(true)}
@@ -214,6 +217,7 @@ import {
                         <Input
                           placeholder="Drivers Licence"
                           type="text"
+                          name = "drivingLicense"
                           value={formData.drivingLicense}
                           onChange={handleInputChange}
                           onFocus={() => setFirstFocus(true)}
@@ -271,6 +275,9 @@ import {
                         <Input
                             placeholder="Center Number" // change the placeholder to match the intended use
                             type="text"
+                            name = 'idNo'
+                            value={formData.idNo} 
+                            onChange={handleInputChange}    
                             onFocus={() => setLastFocus(true)}
                             onBlur={() => setLastFocus(false)}
                         ></Input>
