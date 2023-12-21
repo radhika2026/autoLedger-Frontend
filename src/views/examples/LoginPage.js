@@ -164,7 +164,7 @@ function LoginPage() {
                       onClick={handleSubmit}
                       size="lg"
                     >
-                      Get Started
+                      Login
                     </Button>
                     <div className="pull-left">
                       <h6>

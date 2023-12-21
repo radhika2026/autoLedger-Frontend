@@ -1,0 +1,58 @@
+/* Ensure that the html and body take up the full viewport height */
+html, body {
+    height: 100%;
+    margin: 0; /* Reset default margin */
+  }
+  
+  /* Main App Container - make sure it's flex and stretches to the full height */
+  .main-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* This ensures that the container is at least as tall as the viewport */
+  }
+  
+  /* Content Wrapper - it should grow to push the footer down */
+  .content-container {
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: flex-start; /* Align content to the top */
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px; /* Add padding inside the container */
+  }
+  
+  
+  /* Card Styling */
+  .card {
+    background-color: #ffffff; /* Light background for cards */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    padding: 20px;
+    width: 300px; /* Or any other fixed width or percentage */
+    height: auto; /* Height is auto to accommodate content */
+    margin-bottom: 20px; /* Space between cards and footer */
+  }
+  
+  /* Footer Styling */
+  footer {
+    position: absolute; /* or 'absolute' if the content is short */
+    width: 100%;
+    padding: 10px 0;
+    /* background-color: #333; Dark background for footer */
+    color: #fff; /* Light text for readability */
+    text-align: center;
+    bottom: 0;
+}
+  
+  /* Responsive Design - adjust for smaller screens */
+  @media (max-width: 768px) {
+    .content-container {
+      flex-direction: column; /* Stack the cards vertically on small screens */
+    }
+  
+    .card {
+      width: 80%; /* Full width cards on smaller screens */
+      margin-bottom: 20px;
+    }
+  }
+  

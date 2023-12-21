@@ -11,11 +11,13 @@ import{
 } from "reactstrap";
 // core components
 
-function VehicleServiceHistoryCard(serviceHistory){
+import "assets/css/vehicleinfo.css";
 
+function VehicleServiceHistoryCard(serviceHistory){
+  const cardMargin = 10 + serviceHistory.length * 2;
   return (
     <>
-      <Card className="bg-dark" style={{marginTop: '10rem', marginBottom: '18rem'}}>
+      <Card className="clear-filter" filter-color="blue">
         <CardImgOverlay>
           <CardTitle tag="h4">Vehicle Service History</CardTitle>
           <CardText>
