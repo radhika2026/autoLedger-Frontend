@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { sendRequest } from "utils/resdbApi";
+import { POST_TRANSACTION } from "utils/resdb";
 import Cookies from 'js-cookie';
 import {
     Button,
@@ -18,31 +21,87 @@ import {
     DropdownItem,
     UncontrolledDropdown
   } from "reactstrap";
-  
+
   // core components
   import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
   import TransparentFooter from "components/Footers/TransparentFooter.js";
 
+
+  const metadata = {
+    signerPublicKey: "HvNRQznqrRdCwSKn6R8ZoQE4U3aobQShajK1NShQhGRn",
+    signerPrivateKey: "2QdMTdaNj8mJjduXFAsHieVmcsBcqeWQyW9v891kZEXC",
+    recipientPublicKey: "HvNRQznqrRdCwSKn6R8ZoQE4U3aobQShajK1NShQhGRn",
+  };
+
   function SignUpPage() {
     const [firstFocus, setFirstFocus] = React.useState(false);
     const [lastFocus, setLastFocus] = React.useState(false);
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [dlNumber, setDlNumber] = useState('');
-    const [role, setRole] = useState('');
-    const [centerNumber, setCenterNumber] = useState('');
+    const [formData, setFormData] = useState({
+      userName: "",
+      userRole: "",
+      idNo: "",
+      email: "",
+      password: "",
+      drivingLicense: "",
+    });
+    const navigate = useNavigate();
+    const [errors, setErrors] = useState({});
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
+  
+    const validateStepOne = () => {
+      let errors = {};
+      let isValid = true;
+  
+      if (!formData.userName) {
+        isValid = false;
+        errors.userName = "Name is required";
+      }
+  
+      if (!formData.email.includes("@")) {
+        isValid = false;
+        errors.email = "Invalid email";
+      }
+  
+      const passwordRegex = /^[a-zA-Z0-9]{10,15}$/;
+      if (!passwordRegex.test(formData.password)) {
+        isValid = false;
+        errors.password = "Password must be 10-15 alphanumeric characters";
+      }
+  
+      setErrors(errors);
+      return isValid;
+    };
+  
+    const handleInputChange = (e) => {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+      setErrors({ ...errors, [e.target.name]: "" });
+    };
 
-    
-
-    const handleRoleChange = (event) => {
-        setRole(event.target.value);
-        // Clear center number if role is not DMV, Service Center, or Owner
-        if (!['DMV', 'Service Center', 'Insurance'].includes(event.target.value)) {
-          setCenterNumber('');
-        }
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      const timestamp = Date.now();
+      const dataWithTimestamp = {
+        ...formData,
+        timestamp: timestamp,
+        asset_type: "user",
       };
-
+      const payload = JSON.stringify(dataWithTimestamp);
+      console.log(payload);
+      console.log(payload);
+      navigate("/home");
+        console.log("added successfully ");
+  
+      try {
+        sendRequest(POST_TRANSACTION(metadata, payload)).then((res) => {
+          navigate("/home");
+          console.log("added successfully ", res);
+        });
+      } catch (error) {
+        setToastMessage("Error! Check Entries!");
+        setShowToast(true);
+      }
+    };  
 
     React.useEffect(() => {
       document.body.classList.add("login-page");
@@ -95,8 +154,8 @@ import {
                         <Input
                           placeholder="Name"
                           type="text"
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}                          
+                          value={formData.name}
+                          onChange={handleInputChange}                          
                           onFocus={() => setFirstFocus(true)}
                           onBlur={() => setFirstFocus(false)}
                         ></Input>
@@ -115,8 +174,8 @@ import {
                         <Input
                           placeholder="Email"
                           type="text"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
+                          value={formData.email}
+                          onChange={handleInputChange}
                           onFocus={() => setFirstFocus(true)}
                           onBlur={() => setFirstFocus(false)}
                         ></Input>
@@ -135,10 +194,30 @@ import {
                         <Input
                           placeholder="Password"
                           type="text"
-                          value={password}
-                          onChange={(e) => setPassword(e.target.value)}
+                          value={formData.password}
+                          onChange={handleInputChange}
                           onFocus={() => setLastFocus(true)}
                           onBlur={() => setLastFocus(false)}
+                        ></Input>
+                      </InputGroup>
+                      <InputGroup
+                        className={
+                          "no-border input-lg" +
+                          (firstFocus ? " input-group-focus" : "")
+                        }
+                      >
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <i className="now-ui-icons users_circle-08"></i>
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input
+                          placeholder="Drivers Licence"
+                          type="text"
+                          value={formData.drivingLicense}
+                          onChange={handleInputChange}
+                          onFocus={() => setFirstFocus(true)}
+                          onBlur={() => setFirstFocus(false)}
                         ></Input>
                       </InputGroup>
                       <InputGroup
@@ -157,28 +236,28 @@ import {
                             id="dropdownMenuButton"
                             type="button"
                             >
-                            {role || "Role"}
+                            {formData.userRole || "Role"}
                             </DropdownToggle>
                             <DropdownMenu aria-labelledby="dropdownMenuButton">
-                                <DropdownItem href="#pablo" onClick={(e) => { e.preventDefault(); setRole('Owner'); }}>
+                                <DropdownItem href="#pablo"  onClick={(e) => {e.preventDefault(); setFormData({ ...formData, userRole: 'Owner' });}}>
                                     Owner
                                 </DropdownItem>
-                                <DropdownItem href="#pablo" onClick={(e) => { e.preventDefault(); setRole('User'); }}>
+                                <DropdownItem href="#pablo"  onClick={(e) => { e.preventDefault(); setFormData({ ...formData, userRole: 'User' });}}>
                                     User
                                 </DropdownItem>
-                                <DropdownItem href="#pablo" onClick={(e) => { e.preventDefault(); setRole('DMV'); }}>
+                                <DropdownItem href="#pablo" onClick={(e) => { e.preventDefault(); setFormData({ ...formData, userRole: 'DMV' });}}>
                                     DMV
                                 </DropdownItem>
-                                <DropdownItem href="#pablo" onClick={(e) => { e.preventDefault(); setRole('Insurance'); }}>
+                                <DropdownItem href="#pablo" onClick={(e) => { e.preventDefault(); setFormData({ ...formData, userRole: 'Insurance' });}}>
                                     Insurance
                                 </DropdownItem>
-                                <DropdownItem href="#pablo" onClick={(e) => { e.preventDefault(); setRole('Service Center'); }}>
+                                <DropdownItem href="#pablo" onClick={(e) => { e.preventDefault(); setFormData({ ...formData, userRole: 'Service Center' });}}>
                                     Service Center
                                 </DropdownItem>
                             </DropdownMenu>
                         </UncontrolledDropdown>
                       </InputGroup>
-                      {['DMV', 'Service Center', 'Insurance'].includes(role) && (
+                      {['DMV', 'Service Center', 'Insurance'].includes(formData.userRole) && (
                         <InputGroup
                         className={
                             "no-border input-lg" + (lastFocus ? " input-group-focus" : "")
@@ -204,21 +283,11 @@ import {
                         className="btn-round"
                         color="info"
                         href="#pablo"
-                        onClick={(e) => e.preventDefault()}
+                        onClick={handleSubmit}
                         size="lg"
                       >
                         Get Started
                       </Button>
-                      <div className="pull-left">
-                        <h6>
-                          <a
-                            className="link"
-                            href="/login-page"
-                          >
-                            Login
-                          </a>
-                        </h6>
-                      </div>
                     </CardFooter>
                   </Form>
                 </Card>
