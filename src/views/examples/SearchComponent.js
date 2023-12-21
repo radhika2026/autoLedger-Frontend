@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-    Form, 
-    FormGroup,
-    Input,
-    Button
-  } from "reactstrap";
+import { Form, FormGroup, Input, Button } from "reactstrap";
 
 import { sendRequest } from "utils/resdbApi";
 import { FETCH_CAR } from "utils/resdb";
@@ -20,7 +15,6 @@ const SearchComponent = () => {
   const handleSubmit = async (event) => {
     event.preventDefault(); // Prevents the default form submit action
     var numberPlate = searchTerm;
-
     try {
       sendRequest(FETCH_CAR(numberPlate)).then((res) => {
         if (Object.keys(res).length !== 0){
@@ -29,7 +23,7 @@ const SearchComponent = () => {
               ownerHistory.length > 0 ? ownerHistory[ownerHistory.length - 1] : "";
             res.data.getCarTransaction.currentOwner = lastOwner;
             console.log("added successfully ", res);
-            navigate("/vehicleinfopage", {
+            navigate("/vehicle-info", {
               state: { carDetails: res.data.getCarTransaction },
             });
         } else {
@@ -46,8 +40,11 @@ const SearchComponent = () => {
 
   return (
     <>
-      <Form onSubmit={handleSubmit} value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}>
+      <Form
+        onSubmit={handleSubmit}
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      >
         <FormGroup>
           <label htmlFor="exampleInputEmail1">Search</label>
           <Input
@@ -57,19 +54,18 @@ const SearchComponent = () => {
             type="text"
           ></Input>
         </FormGroup>
-        </Form>
-
         <Button
-            block
-            className="btn-round"
-            color="info"
-            href="#pablo"
-            onClick={(e) => e.preventDefault()}
-            size="lg">
-                Search
-            </Button>
+          block
+          className="btn-round"
+          color="info"
+          type="submit"
+          size="lg"
+        >
+          Search
+        </Button>
+      </Form>
     </>
   );
-}
+};
 
 export default SearchComponent;
