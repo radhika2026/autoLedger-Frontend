@@ -5,6 +5,7 @@ import { sendRequest } from "utils/resdbApi";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
+
 // reactstrap components
 import {
   Button,
@@ -35,10 +36,11 @@ function LoginPage() {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // const res = await sendRequest(FETCH_USER(email, password));
+      const res = await sendRequest(FETCH_USER(email, password));
 
       console.log("added successfully ", email, password);
 
@@ -49,26 +51,34 @@ function LoginPage() {
       Cookies.set("email", "arvind@dmv.com");
       Cookies.set("drivingLicense", "123456789996");
 
-      // if (Object.keys(res).length !== 0) {
-      //   Cookies.set('isLoggedIn', 'true', { expires: 1 }); // Expires in 1 day
-      //   Cookies.set('userName', res.data.getUserTransaction.userName)
-      //   Cookies.set('userRole', res.data.getUserTransaction.userRole)
-      //   Cookies.set('idNo', res.data.getUserTransaction.idNo)
-      //   Cookies.set('email', res.data.getUserTransaction.email)
-      //   Cookies.set('drivingLicense', res.data.getUserTransaction.drivingLicense)
+      if (Object.keys(res).length !== 0) {
+        Cookies.set("isLoggedIn", "true", { expires: 1 }); // Expires in 1 day
+        Cookies.set("userName", res.data.getUserTransaction.userName);
+        Cookies.set("userRole", res.data.getUserTransaction.userRole);
+        Cookies.set("idNo", res.data.getUserTransaction.idNo);
+        Cookies.set("email", res.data.getUserTransaction.email);
+        Cookies.set(
+          "drivingLicense",
+          res.data.getUserTransaction.drivingLicense
+        );
 
-      //   console.log('Log In: ', Cookies.get('isLoggedIn'),
-      //   'Role:', Cookies.get('userRole'),
-      //   'ID: ', Cookies.get('idNo'),
-      //   'Email:', Cookies.get('email'),
-      //   'Driving License', Cookies.get('drivingLicense'))
-      //   navigate("/search");
-
-      // }
-      // else {
-      //   setToastMessage("Invalid credentials!");
-      //   setShowToast(true);
-      // }
+        console.log(
+          "Log In: ",
+          Cookies.get("isLoggedIn"),
+          "Role:",
+          Cookies.get("userRole"),
+          "ID: ",
+          Cookies.get("idNo"),
+          "Email:",
+          Cookies.get("email"),
+          "Driving License",
+          Cookies.get("drivingLicense")
+        );
+        navigate("/search");
+      } else {
+        setToastMessage("Invalid credentials!");
+        setShowToast(true);
+      }
     } catch (error) {
       // Handle error
       setToastMessage("Error Login, check later!");
