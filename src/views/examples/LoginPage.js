@@ -182,7 +182,7 @@ function LoginPage() {
                       onClick={(e) => e.preventDefault()}
                       size="lg"
                     >
-                      Get Started
+                      Login
                     </Button>
                     <div className="pull-left">
                       <h6>

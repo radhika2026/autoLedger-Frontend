@@ -1,9 +1,6 @@
 import React from "react";
 
-import "assets/css/bootstrap.min.css";
-import "assets/scss/now-ui-kit.scss?v=1.5.0";
-import "assets/demo/demo.css?v=1.5.0";
-import "assets/demo/nucleo-icons-page-styles.css?v=1.5.0";
+import "assets/css/vehicleinfo.css"
 
 import { Container, Col, Row } from "reactstrap";
 
@@ -29,16 +26,6 @@ var carData = {
           ownerName: "John Doe",
           ownershipStartDate: "01-01-2021",
           ownershipEndDate: "10-08-2021",
-        },
-        {
-          ownerName: "Jane Doe",
-          ownershipStartDate: "10-08-2021",
-          ownershipEndDate: "15-08-2021",
-        },
-        {
-          ownerName: "Alice Smith",
-          ownershipStartDate: "12-08-2021",
-          ownershipEndDate: "",
         },
       ],
       drivingLicense: "DL123456",
@@ -68,6 +55,7 @@ var carData = {
             "A minor collision occured with another vehicle at Intersection X causing minor dents for the car bumper",
         },
       ],
+
       mileage: "10 km/l",
       odometerReading: "5000 km",
       servicingHistory: [
@@ -76,6 +64,11 @@ var carData = {
           serviceDate: "01-09-2022",
           serviceDescription: "Oil change, filter replacement",
         },
+        {
+          serviceCenter: "AutoBanh Service Center",
+          serviceDate: "12-12-2022",
+          serviceDescription: "Tyre alligning, Oil change",
+        },
       ],
     },
   },
@@ -83,34 +76,18 @@ var carData = {
 
 function VehicleInformationPage() {
   return (
-    <>
-      <ExamplesNavbar />
-      <div className="clear-filter" filter-color="blue">
-      <Container>
-      <Row>
-        <Col md="12">
-        <VehicleOwnerInfoCard ownerData={carData.data.getCarTransaction.ownerHistory}/>
-        </Col>
-      </Row>
-      <Row>
-        <Col md="12">
-        <VehicleInsuranceInfoCard insuranceDetails={carData.data.getCarTransaction.insuranceHistory}/>
-        </Col>
-      </Row>
-      <Row>
-        <Col md="12">
-          <VehicleServiceHistoryCard serviceHistory={carData.data.getCarTransaction.servicingHistory}/>
-        </Col>
-      </Row>
-      <Row>
-        <Col md="12">
-        <VehicleSpecCard vehicleSpecs = { carData.data.getCarTransaction}/>
-        </Col>
-      </Row>
-    </Container>
-        <TransparentFooter />
-      </div>
-    </>
+    <div className="clear-filter" filter-color="blue">
+    <ExamplesNavbar />
+    <div className="main-container">
+            <div className="content-container">
+              <VehicleOwnerInfoCard ownerData={carData.data.getCarTransaction.ownerHistory}/>
+                <VehicleInsuranceInfoCard insuranceDetails={carData.data.getCarTransaction.insuranceHistory}/>
+                <VehicleServiceHistoryCard serviceHistory={carData.data.getCarTransaction.servicingHistory}/>
+                <VehicleSpecCard vehicleSpecs = { carData.data.getCarTransaction}/>
+            </div>
+            <TransparentFooter />
+        </div>
+    </div>
   );
 }
 export default VehicleInformationPage;

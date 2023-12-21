@@ -11,7 +11,12 @@ import {
 } from "reactstrap";
 // core components
 
+import "assets/css/vehicleinfo.css";
+
 function VehicleInsuranceInfoCard(insuranceDetails) {
+  console.log("Insurance", insuranceDetails)
+  console.log("InsuranceLength", insuranceDetails.length)
+  const cardMargin = 10 + insuranceDetails.length * 5;
   // const insuranceDetails = [
   //   {
   //     date: "12-10-2021",
@@ -27,7 +32,7 @@ function VehicleInsuranceInfoCard(insuranceDetails) {
 
   return (
     <>
-      <Card className="bg-dark" style={{marginTop: '12rem', marginBottom: '18rem'}}>
+      <Card className="clear-filter" filter-color="blue" >
         <CardImgOverlay>
           <CardTitle tag="h4">Vehicle Insurance Details</CardTitle>
           {insuranceDetails.insuranceDetails.map((detail, index) => (
