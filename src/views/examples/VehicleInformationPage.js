@@ -76,7 +76,7 @@ var carData = {
 
 function VehicleInformationPage() {
   return (
-    <div className="clear-filter" filter-color="blue">
+    <div>
     <ExamplesNavbar />
     <div className="main-container">
             <div className="content-container">

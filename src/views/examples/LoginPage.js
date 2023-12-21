@@ -35,7 +35,6 @@ function LoginPage() {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -45,7 +44,7 @@ function LoginPage() {
 
       Cookies.set("isLoggedIn", "true", { expires: 1 }); // Expires in 1 day
       Cookies.set("userName", "Arvind");
-      Cookies.set("userRole", "Insurance");
+      Cookies.set("userRole", "DMV");
       Cookies.set("idNo", "123456789");
       Cookies.set("email", "arvind@dmv.com");
       Cookies.set("drivingLicense", "123456789996");

@@ -6,6 +6,7 @@ html, body {
   
   /* Main App Container - make sure it's flex and stretches to the full height */
   .main-container {
+    background: linear-gradient(to bottom, lightblue, white);
     display: flex;
     flex-direction: column;
     min-height: 100vh; /* This ensures that the container is at least as tall as the viewport */
@@ -24,7 +25,7 @@ html, body {
   
   /* Card Styling */
   .card {
-    background-color: #ffffff; /* Light background for cards */
+     /* Light background for cards */
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
     padding: 20px;
